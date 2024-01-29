@@ -1,0 +1,45 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-center">Product Catalog</h1>
+    <p class="text-center">Explore our wide range of products</p>
+
+    <table class="table table-hover mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td> @product.Id</td>
+                    <td> @product.Name</td>
+                    <td> @product.Description</td>
+                    <td> @product.Price.ToString("C")</td>
+                    <td> @product.Stock</td>
+                    <td> @product.Category</td>
+                    <td>
+                        <a href="/EditProduct/@product.Id">עריכה</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-Id="@product.Id">
+                            <button type="submit" class="btn btn-danger">
+                                delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="/AddProduct" class="btn btn-primary fixed-bottom-right">Add Product</a>
+</div>
