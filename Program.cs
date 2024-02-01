@@ -5,9 +5,15 @@ namespace ProductsManager
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
 
             var app = builder.Build();
 
@@ -23,7 +29,7 @@ namespace ProductsManager
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.MapRazorPages();

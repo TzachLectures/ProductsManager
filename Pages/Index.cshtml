@@ -22,7 +22,7 @@
         <tbody>
             @foreach (var product in Model.Products)
             {
-                <tr>
+                <tr onclick="window.location='/Product/@product.Id';" style="cursor:pointer;">
                     <td> @product.Id</td>
                     <td> @product.Name</td>
                     <td> @product.Description</td>
@@ -30,10 +30,21 @@
                     <td> @product.Stock</td>
                     <td> @product.Category</td>
                     <td>
-                        <a href="/EditProduct/@product.Id">עריכה</a>
-                        <form method="post" asp-page-handler="Delete" asp-route-Id="@product.Id">
+
+                        <a href="/EditProduct/@product.Id">
+                        <i class="fa fa-edit"></i>    
+                        </a>
+
+
+                        <form method="post" asp-page-handler="Delete" asp-route-Id="@product.Id" class="d-inline">
                             <button type="submit" class="btn btn-danger">
-                                delete
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+
+                        <form method="post" asp-page-handler="Cart" asp-route-Id="@product.Id" class="d-inline">
+                            <button type="submit" class="btn @(Model.Cart.Contains(product.Id)? "btn-primary": "btn-light")">
+                                <i class="fa-solid fa-cart-shopping"></i>
                             </button>
                         </form>
                     </td>
