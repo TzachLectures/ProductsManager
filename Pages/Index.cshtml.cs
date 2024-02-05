@@ -9,9 +9,9 @@ namespace ProductsManager.Pages
     public class IndexModel : PageModel
     {
        
-        public List<Product> Products { get;private set; }
+        public List<ProductCardView> Products { get;private set; } = new List<ProductCardView>();
         private ProductsDbService _productsDbService;
-        public List<int> Cart { get; set; }
+        public static List<int> Cart { get; set; }
 
         public IndexModel()
         {
@@ -20,8 +20,12 @@ namespace ProductsManager.Pages
 
         public void OnGet()
         {
-            Products = _productsDbService.GetAll();
+            List<Product> products = _productsDbService.GetAll();
             InitializeCart();
+            foreach (Product p in products)
+            {
+                Products.Add(new ProductCardView { Product = p , IsInCart= Cart.Contains(p.Id)});
+            }
 
         }
 

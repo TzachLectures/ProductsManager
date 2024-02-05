@@ -11,13 +11,9 @@
  <div style="display:flex; flex-wrap:wrap">
             @foreach (var product in Model.Products)
             {
+            <div class="col-md-4">
                 <partial name="./Shared/_ProductCard" model="product"/>
-
-        <form method="post" asp-page-handler="Cart" asp-route-Id="@product.Id" class="d-inline">
-            <button type="submit" class="btn @(Model.Cart.Contains(product.Id)? "btn-primary": "btn-light")">
-                <i class="fa fa-cart-plus"></i>
-            </button>
-        </form>
+            </div>
             }
     </div>
     <a href="/AddProduct" class="btn btn-primary fixed-bottom-right">Add Product</a>
