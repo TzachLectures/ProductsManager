@@ -8,49 +8,17 @@
     <h1 class="display-4 text-center">Product Catalog</h1>
     <p class="text-center">Explore our wide range of products</p>
 
-    <table class="table table-hover mt-3">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Category</th>
-            </tr>
-        </thead>
-        <tbody>
+ <div style="display:flex; flex-wrap:wrap">
             @foreach (var product in Model.Products)
             {
-                <tr onclick="window.location='/Product/@product.Id';" style="cursor:pointer;">
-                    <td> @product.Id</td>
-                    <td> @product.Name</td>
-                    <td> @product.Description</td>
-                    <td> @product.Price.ToString("C")</td>
-                    <td> @product.Stock</td>
-                    <td> @product.Category</td>
-                    <td>
+                <partial name="./Shared/_ProductCard" model="product"/>
 
-                        <a href="/EditProduct/@product.Id">
-                        <i class="fa fa-edit"></i>    
-                        </a>
-
-
-                        <form method="post" asp-page-handler="Delete" asp-route-Id="@product.Id" class="d-inline">
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </form>
-
-                        <form method="post" asp-page-handler="Cart" asp-route-Id="@product.Id" class="d-inline">
-                            <button type="submit" class="btn @(Model.Cart.Contains(product.Id)? "btn-primary": "btn-light")">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+        <form method="post" asp-page-handler="Cart" asp-route-Id="@product.Id" class="d-inline">
+            <button type="submit" class="btn @(Model.Cart.Contains(product.Id)? "btn-primary": "btn-light")">
+                <i class="fa fa-cart-plus"></i>
+            </button>
+        </form>
             }
-        </tbody>
-    </table>
+    </div>
     <a href="/AddProduct" class="btn btn-primary fixed-bottom-right">Add Product</a>
 </div>

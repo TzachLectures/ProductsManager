@@ -1,0 +1,20 @@
+﻿@model ProductsManager.Models.Product
+
+<div class="card" style="width:18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.Description</p>
+        <p class="card-text">@Model.Price.ToString("C")</p>
+        <p class="card-text">Stock: @Model.Stock</p>
+        <p class="card-text">Category: @Model.Category</p>
+        <a href="/Product/@Model.Id" class="btn btn-primary">View</a>
+        <a href="/EditProduct/@Model.Id" class="btn btn-secondary">Edit</a>
+        <form method="post" asp-page-handler="Delete" asp-route-Id="@Model.Id" class="d-inline">
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+            </button>
+        </form>
+
+    </div>
+
+</div>
